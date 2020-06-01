@@ -13,7 +13,7 @@ public:
 private:
     void parameterChanged (const String& parameter_id, float new_value) override;
 
-    int getNegHarmNn (int nn);
+    int getNegHarmNn (int nn, int key);
 
     MidiBuffer p_midi_buffer_;
 

@@ -40,12 +40,12 @@ void MidiProcessor::processMidiMsgsBlock(MidiBuffer &midi_messages)
             if (*is_on_ > FLT_MIN)
             {
                 auto orig_nn = cur_msg.getNoteNumber();
-                auto new_nn = getNegHarmNn(orig_nn);
+                auto new_nn = getNegHarmNn(orig_nn, (int)*cur_key_);
                 DBG ("Transformed ["
                     << orig_nn << "] "
-                    << MidiMessage::getMidiNoteName(orig_nn, true, true, 3) << " to ["
+                    << MidiMessage::getMidiNoteName(orig_nn, true, true, 4) << " to ["
                     << new_nn << "] "
-                    << MidiMessage::getMidiNoteName (new_nn, true, true, 3));
+                    << MidiMessage::getMidiNoteName (new_nn, true, true, 4));
                 cur_msg.setNoteNumber(new_nn);
             }
         }
@@ -61,10 +61,11 @@ void MidiProcessor::parameterChanged(const String &parameter_id, float new_value
     state_changed_ = true;
 }
 
-int MidiProcessor::getNegHarmNn(int nn)
+int MidiProcessor::getNegHarmNn(int nn, int key)
 {
-    DBG ("getNegHarmNn called, nn: " << nn << " key: " << *cur_key_);
+    DBG ("getNegHarmNn called, nn: " << nn << " key: " << key);
     MidiMessage::getMidiNoteName(nn, false, true, 4);
-
-    return nn;
+    auto octave = (nn + (key % 12)) / 12;
+    auto new_nn = 2 * (key + octave * 12) + 7 - nn;
+    return new_nn;
 }
