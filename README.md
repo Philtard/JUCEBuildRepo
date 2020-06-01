@@ -1,4 +1,6 @@
+
 # JUCECmakeRepoPrototype
+
 A prototype to model a way to create an entire repo using JUCE 6 and CMake.
 
 The main concept is to set all the different variables (where JUCE is, custom modules, etc) in the top CMakeLists.txt, then add all your projects with very little setup time.
@@ -6,7 +8,7 @@ The main concept is to set all the different variables (where JUCE is, custom mo
 To build this, all you have to do is load this project in your favorite IDE (CLion/Visual Studio/Visual Studio Code) and click 'build' on one of the targets (templates, JUCE examples, Projucer, etc).
 
 You can also generate a project for an IDE by doing:
-CMake -G Xcode -S . -B build 
+CMake -G Xcode -S . -B build
 
 JUCE 6 just came out and is in testing stages, so feel free to report any bugs!
 
