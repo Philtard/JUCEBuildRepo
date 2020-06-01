@@ -23,7 +23,7 @@ juce_add_plugin("${BaseTargetName}"
         PLUGIN_MANUFACTURER_CODE Juce
         PLUGIN_CODE Dem0
         FORMATS AU VST3 Standalone
-        PRODUCT_NAME "Audio Plugin Midi Effect Example")
+        PRODUCT_NAME "To Negative Harmony")
 
 juce_generate_juce_header(${BaseTargetName})
 
