@@ -13,6 +13,7 @@ cmake_install.cmake
 CMakeScripts
 
 .idea
+/.vs/
 
 IDEWorkspaceChecks.plist
 UserInterfaceState.xcuserstate
