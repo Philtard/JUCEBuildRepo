@@ -1,6 +1,6 @@
 #include "MidiProcessor.h"
 
-#include <cfloat>
+//#include <cfloat>
 
 #include "PluginProcessor.h"
 
@@ -37,7 +37,7 @@ void MidiProcessor::processMidiMsgsBlock(MidiBuffer &midi_messages)
                     << cur_msg.getChannel() << " sample_pos: " << sample_pos);
                 state_changed_ = false;
             }
-            if (*is_on_ > FLT_MIN)
+            if (*is_on_ > 0.0f)//FLT_MIN)
             {
                 auto orig_nn = cur_msg.getNoteNumber();
                 auto new_nn = getNegHarmNn(orig_nn, (int)*cur_key_);
