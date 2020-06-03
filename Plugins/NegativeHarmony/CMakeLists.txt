@@ -20,8 +20,9 @@ juce_add_plugin("${BaseTargetName}"
         IS_MIDI_EFFECT TRUE
         EDITOR_WANTS_KEYBOARD_FOCUS FALSE
         COPY_PLUGIN_AFTER_BUILD ${postBuild}
-        PLUGIN_MANUFACTURER_CODE Juce
-        PLUGIN_CODE Dem0
+        PLUGIN_MANUFACTURER "horrorshow.io"
+        PLUGIN_MANUFACTURER_CODE C137
+        PLUGIN_CODE NeHa
         FORMATS AU VST3 Standalone
         PRODUCT_NAME "To Negative Harmony")
 
