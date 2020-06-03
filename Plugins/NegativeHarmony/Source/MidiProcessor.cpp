@@ -1,7 +1,5 @@
 #include "MidiProcessor.h"
 
-//#include <cfloat>
-
 #include "PluginProcessor.h"
 
 MidiProcessor::MidiProcessor(AudioProcessorValueTreeState& vts) : apvts_ (vts)
@@ -37,7 +35,7 @@ void MidiProcessor::processMidiMsgsBlock(MidiBuffer &midi_messages)
                     << cur_msg.getChannel() << " sample_pos: " << sample_pos);
                 state_changed_ = false;
             }
-            if (*is_on_ > 0.0f)//FLT_MIN)
+            if (*is_on_ > 0.0f)
             {
                 auto orig_nn = cur_msg.getNoteNumber();
                 auto new_nn = getNegHarmNn(orig_nn, (int)*cur_key_);
@@ -63,9 +61,13 @@ void MidiProcessor::parameterChanged(const String &parameter_id, float new_value
 
 int MidiProcessor::getNegHarmNn(int nn, int key)
 {
-    DBG ("getNegHarmNn called, nn: " << nn << " key: " << key);
-    MidiMessage::getMidiNoteName(nn, false, true, 4);
-    auto octave = (nn + (key % 12)) / 12;
-    auto new_nn = 2 * (key + octave * 12) + 7 - nn;
-    return new_nn;
+    DBG ("getNegHarmNn called, nn: " << nn << " key: " << key
+        << " NoteName: " << MidiMessage::getMidiNoteName(nn, false, true, 4));
+
+    auto mirrorOctave = floor ((nn + 2 - key) / kOctaveSpan);
+    auto mirrorPos = mirrorOctave * kOctaveSpan + 3.5 + key;
+    auto relPosNnToMirror = nn - mirrorPos;
+    auto negHarmRelPos = relPosNnToMirror * (-1);
+    auto negHarmPos = negHarmRelPos + mirrorPos;
+    return negHarmPos;
 }

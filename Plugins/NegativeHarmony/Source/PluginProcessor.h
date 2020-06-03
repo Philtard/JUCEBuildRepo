@@ -4,18 +4,18 @@
 #include "MidiProcessor.h"
 
 const StringArray kKeySignatures {
-    "C & am",
-    "G & em",
-    "D & bm",
-    "A & f#",
-    "E & c#",
-    "B & g#",
-    "F# & Gb & d# & eb",
-    "Db & bb",
-    "Ab & f",
-    "Eb & c",
-    "Bb & g",
-    "F & d"
+    "C",
+    "Db",
+    "D",
+    "Eb",
+    "E",
+    "F"
+    "F# & Gb",
+    "G",
+    "Ab",
+    "A",
+    "Bb",
+    "B",
 };
 
 constexpr auto kIdKey = "id_key";
