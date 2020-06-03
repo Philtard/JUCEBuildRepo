@@ -53,12 +53,13 @@ public:
     const String getProgramName(int) override { return String(); }
     void changeProgramName(int, const String& /*newName*/) override {}
 
-    void getStateInformation (MemoryBlock& dest_data) override;
-    void setStateInformation (const void* data, int size_in_bytes) override;
+    void getStateInformation(MemoryBlock& dest_data) override;
+    void setStateInformation(const void* data, int size_in_bytes) override;
+
 private:
     AudioProcessorValueTreeState apvts_;
 
-    MidiProcessor midi_processor_ { apvts_ };
+    MidiProcessor midi_processor_ {apvts_};
 
     AudioProcessorValueTreeState::ParameterLayout createParameters() const;
 };

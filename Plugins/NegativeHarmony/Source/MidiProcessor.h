@@ -26,17 +26,18 @@
 
 constexpr auto kOctaveSpan = 12;
 
-class MidiProcessor : AudioProcessorValueTreeState::Listener
+class MidiProcessor final : AudioProcessorValueTreeState::Listener
 {
 public:
-    explicit MidiProcessor (AudioProcessorValueTreeState& vts);
+    explicit MidiProcessor(AudioProcessorValueTreeState& vts);
     ~MidiProcessor() override;
 
-    void processMidiMsgsBlock (MidiBuffer& midi_messages);
+    void processMidiMsgsBlock(MidiBuffer& midi_messages);
 
-    int getNegHarmNn (int nn, int key);
+    int getNegHarmNn(int nn, int key);
+
 private:
-    void parameterChanged (const String& parameter_id, float new_value) override;
+    void parameterChanged(const String& parameter_id, float new_value) override;
 
     MidiBuffer p_midi_buffer_;
 

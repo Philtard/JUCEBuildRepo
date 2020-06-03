@@ -1,20 +1,20 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-NegativeHarmonyProcessor::NegativeHarmonyProcessor() :
-    apvts_ (*this, nullptr, "PARAMETERS", createParameters())
+NegativeHarmonyProcessor::NegativeHarmonyProcessor()
+    : apvts_(*this, nullptr, "PARAMETERS", createParameters())
 {
 }
 
 NegativeHarmonyProcessor::~NegativeHarmonyProcessor() = default;
 
-void NegativeHarmonyProcessor::prepareToPlay(double /*sampleRate*/, int /*blockSize*/)
+void NegativeHarmonyProcessor::prepareToPlay(double /*sampleRate*/,
+                                             int /*blockSize*/)
 {
-
 }
 
 void NegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer,
-                                                   MidiBuffer& midiMessages)
+                                            MidiBuffer& midiMessages)
 
 {
     midi_processor_.processMidiMsgsBlock(midiMessages);
@@ -26,18 +26,18 @@ AudioProcessorEditor* NegativeHarmonyProcessor::createEditor()
     return new NegativeHarmonyEditor(*this, apvts_);
 }
 
-void NegativeHarmonyProcessor::getStateInformation(MemoryBlock &dest_data)
+void NegativeHarmonyProcessor::getStateInformation(MemoryBlock& dest_data)
 {
     const auto state = apvts_.copyState();
     const auto xml = state.createXml();
     copyXmlToBinary(*xml, dest_data);
 }
 
-void NegativeHarmonyProcessor::setStateInformation(const void *data, int sizeInBytes)
+void NegativeHarmonyProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    const auto xmlState (getXmlFromBinary(data, sizeInBytes));
+    const auto xmlState(getXmlFromBinary(data, sizeInBytes));
 
-    if(xmlState != nullptr && xmlState->hasTagName(apvts_.state.getType()))
+    if (xmlState != nullptr && xmlState->hasTagName(apvts_.state.getType()))
     {
         apvts_.replaceState(ValueTree::fromXml(*xmlState));
     }
@@ -49,23 +49,20 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 }
 
 AudioProcessorValueTreeState::ParameterLayout
-NegativeHarmonyProcessor::createParameters() const
+    NegativeHarmonyProcessor::createParameters() const
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    params.push_back(std::make_unique<AudioParameterBool> (
+    params.push_back(std::make_unique<AudioParameterBool>(
         kIdIsProcessingActive, "is processing active", false));
 
     params.push_back(
-        std::make_unique<AudioParameterChoice> (kIdKey, "Key", kKeySignatures, 0)
-        );
+        std::make_unique<AudioParameterChoice>(kIdKey, "Key", kKeySignatures, 0));
 
     params.push_back(std::make_unique<AudioParameterInt>(
-        kIdMinMidiNoteNumber, "Smallest Midi Note Number", 0, 127, 24
-        ));
+        kIdMinMidiNoteNumber, "Smallest Midi Note Number", 0, 127, 24));
     params.push_back(std::make_unique<AudioParameterInt>(
-        kIdMaxMidiNoteNumber, "Largest Midi Note Number", 0, 127, 127
-    ));
+        kIdMaxMidiNoteNumber, "Largest Midi Note Number", 0, 127, 127));
 
-    return { params.begin(), params.end() };
+    return {params.begin(), params.end()};
 }

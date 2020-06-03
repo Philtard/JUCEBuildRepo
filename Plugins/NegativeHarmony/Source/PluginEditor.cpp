@@ -1,29 +1,27 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-NegativeHarmonyEditor::NegativeHarmonyEditor(
-    NegativeHarmonyProcessor& p,
-    AudioProcessorValueTreeState& vts)
-    : AudioProcessorEditor(&p), processor_ (p), apvts_(vts)
+NegativeHarmonyEditor::NegativeHarmonyEditor(NegativeHarmonyProcessor& p,
+                                             AudioProcessorValueTreeState& vts)
+    : AudioProcessorEditor(&p)
+    , processor_(p)
+    , apvts_(vts)
 {
     midi_keyboard_state_.addListener(this);
     addAndMakeVisible(midi_keyboard_);
 
-    power_on_button_attachment_ = std::make_unique<ButtonAttachment> (
-        apvts_, kIdIsProcessingActive, power_on_button_
-        );
+    power_on_button_attachment_ = std::make_unique<ButtonAttachment>(
+        apvts_, kIdIsProcessingActive, power_on_button_);
     addAndMakeVisible(power_on_button_);
 
-    tonic_note_no_slider_attachments_ = std::make_unique<SliderAttachment> (
-        apvts_, kIdKey, tonic_note_no_slider_
-        );
+    tonic_note_no_slider_attachments_ =
+        std::make_unique<SliderAttachment>(apvts_, kIdKey, tonic_note_no_slider_);
     addAndMakeVisible(tonic_note_no_slider_);
 
     choice_box_.addItemList(kKeySignatures,
                             1); // Choices have to be filled before attachment
-    choice_box_attachment_ = std::make_unique<ComboBoxAttachment> (
-        apvts_, kIdKey, choice_box_
-        );
+    choice_box_attachment_ =
+        std::make_unique<ComboBoxAttachment>(apvts_, kIdKey, choice_box_);
     addAndMakeVisible(choice_box_);
 
     addAndMakeVisible(plugin_ui_header_);
@@ -36,17 +34,17 @@ NegativeHarmonyEditor::~NegativeHarmonyEditor()
     midi_keyboard_state_.removeListener(this);
 }
 
-void NegativeHarmonyEditor::handleNoteOn (MidiKeyboardState* source,
-                                            int midi_channel,
-                                            int midi_note_number,
-                                            float velocity)
+void NegativeHarmonyEditor::handleNoteOn(MidiKeyboardState* source,
+                                         int midi_channel,
+                                         int midi_note_number,
+                                         float velocity)
 {
 }
 
-void NegativeHarmonyEditor::handleNoteOff (MidiKeyboardState* source,
-                                             int midi_channel,
-                                             int midi_note_number,
-                                             float velocity)
+void NegativeHarmonyEditor::handleNoteOff(MidiKeyboardState* source,
+                                          int midi_channel,
+                                          int midi_note_number,
+                                          float velocity)
 {
 }
 
