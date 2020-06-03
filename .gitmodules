@@ -2,3 +2,5 @@
 	path = Plugins/NegativeHarmony
 	url = git@github.com:Philtard/NegativeHarmony.git
 	branch = master
+	update = merge
+
