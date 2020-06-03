@@ -1,3 +1,4 @@
-[submodule "Plugins/NegativeHarmony"]
+[submodule "NegativeHarmony"]
 	path = Plugins/NegativeHarmony
 	url = git@github.com:Philtard/NegativeHarmony.git
+	branch = master
