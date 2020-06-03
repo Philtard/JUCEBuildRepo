@@ -7,13 +7,14 @@ build-ios
 
 cmake-build-debug
 cmake-build-release
+cmake-gui-build
 CMakeFiles
 CMakeCache.txt
 cmake_install.cmake
 CMakeScripts
 
 .idea
-/.vs/
+.vs
 
 IDEWorkspaceChecks.plist
 UserInterfaceState.xcuserstate
