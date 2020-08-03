@@ -4,3 +4,6 @@
 	branch = master
 	update = merge
 
+[submodule "Plugins/HSCompressor"]
+	path = Plugins/HSCompressor
+	url = git@github.com:Philtard/HSCompressor.git
