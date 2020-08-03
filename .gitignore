@@ -7,7 +7,9 @@ build-ios
 out
 
 cmake-build-debug
+cmake-build-debug-visual-studio
 cmake-build-release
+cmake-build-release-visual-studio
 cmake-gui-build
 CMakeFiles
 CMakeCache.txt
