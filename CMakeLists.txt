@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 project(JUCECMakeRepo)
 
-#adding my own custom git functions, to save some boilerplate::
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
+#adding my own custom git functions, to save some boilerplate:
 include (CMake/GitFunctions.cmake)
 
 #calling my custom function to grab JUCE 6 from git:
-update_from_git(juce "https://github.com/juce-framework/juce" juce6)
+update_from_git(juce "https://github.com/juce-framework/juce" develop)
 
 #set any of these to "ON" if you want to build one of the juce examples
 #or extras (Projucer/AudioPluginHost, etc):
