@@ -1,6 +1,6 @@
-project(AudioProcessingPlugin VERSION 0.0.1)
+project(DelayPlugin VERSION 0.0.1)
 
-set (BaseTargetName AudioProcessingPlugin)
+set(BaseTargetName DelayPlugin)
 
 juce_add_plugin("${BaseTargetName}"
         # VERSION ...                               # Set this if the plugin version is different to the project version
@@ -16,7 +16,7 @@ juce_add_plugin("${BaseTargetName}"
         PLUGIN_MANUFACTURER_CODE Juce
         PLUGIN_CODE Dem0
         FORMATS AU VST3 Standalone
-        PRODUCT_NAME "Audio Processing Plugin")
+        PRODUCT_NAME "Delay Effect Plugin")
 
 juce_generate_juce_header(${BaseTargetName})
 

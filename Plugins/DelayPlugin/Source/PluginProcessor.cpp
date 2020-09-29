@@ -42,9 +42,9 @@ void DelayProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
     mWritePosition_ %= delayBufferLength;
 }
 void DelayProcessor::fillDelayBuffer(int channel,
-                                const int bufferLength,
-                                const int delayBufferLength,
-                                const float* bufferData)
+                                     const int bufferLength,
+                                     const int delayBufferLength,
+                                     const float* bufferData)
 {
     const float gain = 0.3;
 
@@ -64,10 +64,10 @@ void DelayProcessor::fillDelayBuffer(int channel,
 }
 
 void DelayProcessor::getFromDelayBuffer(juce::AudioBuffer<float>& buffer,
-                                   int channel,
-                                   const int bufferLength,
-                                   const int delayBufferLength,
-                                   const float* delayBufferData) const
+                                        int channel,
+                                        const int bufferLength,
+                                        const int delayBufferLength,
+                                        const float* delayBufferData) const
 {
     int delayTime = 75;
     const int readPosition = static_cast<int>(delayBufferLength + mWritePosition_
@@ -88,9 +88,9 @@ void DelayProcessor::getFromDelayBuffer(juce::AudioBuffer<float>& buffer,
 }
 
 void DelayProcessor::feedbackDelay(int channel,
-                              const int bufferLength,
-                              const int delayBufferLength,
-                              float* dryBuffer)
+                                   const int bufferLength,
+                                   const int delayBufferLength,
+                                   float* dryBuffer)
 {
     if (delayBufferLength > bufferLength + mWritePosition_)
     {
