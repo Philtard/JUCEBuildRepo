@@ -7,3 +7,6 @@
 [submodule "Plugins/HSCompressor"]
 	path = Plugins/HSCompressor
 	url = git@github.com:Philtard/HSCompressor.git
+[submodule "Plugins/DelayPlugin"]
+	path = Plugins/DelayPlugin
+	url = git@github.com:Philtard/DelayPlugin.git
