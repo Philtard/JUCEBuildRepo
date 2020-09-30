@@ -1,7 +1,12 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-DelayProcessor::DelayProcessor() = default;
+DelayProcessor::DelayProcessor()
+    : apvts_(*this, nullptr, "PARAMETERS", createParameters())
+{
+    delay_gain_ = apvts_.getRawParameterValue("delay_gain");
+    delay_time_ = apvts_.getRawParameterValue("delay_time");
+}
 
 void DelayProcessor::prepareToPlay(double sampleRate, int blockSize)
 {
@@ -46,7 +51,7 @@ void DelayProcessor::fillDelayBuffer(int channel,
                                      const int delayBufferLength,
                                      const float* bufferData)
 {
-    const float gain = 0.3;
+    const float gain = delay_gain_->load();
 
     if (delayBufferLength > bufferLength + mWritePosition_)
     {
@@ -69,7 +74,7 @@ void DelayProcessor::getFromDelayBuffer(juce::AudioBuffer<float>& buffer,
                                         const int delayBufferLength,
                                         const float* delayBufferData) const
 {
-    int delayTime = 75;
+    int delayTime = delay_time_->load();
     const int readPosition = static_cast<int>(delayBufferLength + mWritePosition_
                                               - (mSampleRate_ * delayTime / 1000))
                              % delayBufferLength;
@@ -110,10 +115,22 @@ void DelayProcessor::feedbackDelay(int channel,
 
 juce::AudioProcessorEditor* DelayProcessor::createEditor()
 {
-    return new Editor(*this);
+    return new DelayEditor(*this, apvts_);
 }
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new DelayProcessor();
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout DelayProcessor::createParameters()
+{
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "delay_gain", "Delay Gain", 0, 1, 0.8));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "delay_time", "Delay Time ms", 1, 2000, 40));
+
+    return {params.begin(), params.end()};
 }

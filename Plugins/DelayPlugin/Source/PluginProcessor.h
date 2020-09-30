@@ -54,6 +54,12 @@ private:
                        int delayBufferLength,
                        float* dryBuffer);
 
+    juce::AudioProcessorValueTreeState apvts_;
+    std::atomic<float>* delay_gain_;
+    std::atomic<float>* delay_time_;
+
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
+
     juce::AudioBuffer<float> mDelayBuffer_;
     int mWritePosition_ {0};
     int mSampleRate_ {48000};
